@@ -6,12 +6,12 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/01 13:16:49 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/02 15:01:53 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_malloc.h"
+#include "ft_malloc.h"
 
 void    *malloc(size_t size) {
-    return NULL;
+    return mmap(0, size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 }

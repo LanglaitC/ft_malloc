@@ -6,12 +6,14 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/01 13:16:10 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/02 15:30:16 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_malloc.h"
+#include "ft_malloc.h"
 
 void    free(void* ptr) {
-    return NULL;
+    if (ptr) {
+        //munmap(ptr, size)
+    }
 }
