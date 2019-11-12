@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/02 13:51:36 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/07 12:03:18 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ void    *realloc(void* ptr, size_t size) {
     if (ptr == NULL) {
         return malloc(size);
     }
-    printf("%s %zu", ptr, size);
     return NULL;
 }
