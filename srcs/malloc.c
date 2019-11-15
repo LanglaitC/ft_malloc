@@ -6,67 +6,62 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/13 15:31:48 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:59:01 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "../inc/ft_malloc.h"
 
-void    *handle_large_chunk(size) {
-        t_alloc *tmp;
-        t_alloc *last;
+void    *create_new_chunk(t_alloc *last, int size) {
+    t_alloc *new;
+    int     to_jump;
 
-        if (!global_info->large)
-        {
-            global_info->large = mmap(0, sizeof(t_info) + size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-            global_info->large->address = global_info->large + sizeof(t_info);
-            return global_info->large->address;
-        } else
-        {
-            tmp = global_info->large;
-            while (tmp) {
-                last = tmp;
-                tmp = tmp->next;                
-            }
-            last->next = mmap(0, sizeof(t_info) + size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-            last->next->address = last->next + sizeof(t_info);
-            last->next->size = size;
-            return last->next->address;
-        }
+    if (last == NULL) {
+        new = global_info->current->start;
+        new->prev = NULL;
+        new->next = NULL;
+    } else {
+        to_jump = (last->size < TINY ? TINY : SMALL) + sizeof(t_alloc);
+        new = last + to_jump;
+        last->next = new;
+        new->prev = last;
+    }
+    new->size = size;
+    new->address = new + sizeof(t_alloc);
+    new->status = ALLOCATED;
+    return new->address;
 }
 
-void    *allocate_memory(size_t size, t_alloc *start, t_zone_info info) {
-    void    *start_ptr;
-    t_alloc *last;
+void    *allocate_memory(size_t size) {
+    t_alloc *new;
     t_alloc *tmp;
-    
-    tmp = start;
-    last = start;
-    start_ptr = info.start;
-    while (tmp != NULL) {
-        if (tmp->status == NOALLOC) {
+    t_alloc *last;
+
+    global_info->current->free_nbr--;
+    if (global_info->current->status == LARGE_STATUS) {
+        new = global_info->current->start;
+        new->size = size;
+        new->status = ALLOCATED;
+        new->address = new + sizeof(t_alloc);
+        return new->address;
+    } else {
+        tmp = global_info->current->start;
+        last = tmp;
+        while (tmp != NULL && tmp->status != NOALLOC) {
+            last = tmp;
+            tmp = tmp->next;
+        }
+        if (tmp != NULL) {
             tmp->status = ALLOCATED;
+            tmp->size = size;
             return tmp->address;
         }
-        last = tmp;
-        tmp = tmp->next;
+        return create_new_chunk(last, size);
     }
-    last->next = last->address + sizeof(t_alloc) + size;
-    tmp = last->next;
-    tmp->address = tmp + sizeof(t_alloc);
-    tmp->status = ALLOCATED;
-    tmp->size = size;
-    return tmp->address;
 }
 
 void    *malloc(size_t size) {
+    //show_alloc_mem();
     global_info = get_info_variable(size);
-    if (size < TINY) {
-        return allocate_memory(TINY, global_info->small, global_info->small_info);
-    } else if (size < SMALL) {
-        return allocate_memory(SMALL, global_info->medium, global_info->medium_info);
-    } else {
-        return handle_large_chunk(size);
-    }
-    return mmap(0, size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+    return allocate_memory(size);
 }

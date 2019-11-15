@@ -6,65 +6,49 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/13 15:44:02 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:57:54 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "../inc/ft_malloc.h"
 
-void	free_ptr(t_alloc *found_ptr, t_alloc* last, size_t position)
-{
-	if (position < 2)
-	{
-		found_ptr->status = NOALLOC;
-	} else 
-	{
-		if (found_ptr == last)
-		{
-			munmap(found_ptr, found_ptr->size);
-			global_info->large = NULL;
-		} else
-		{
-			last->next = found_ptr->next;
-			munmap(found_ptr, found_ptr->size);
-		}
-	}
-}
+// void	find_in_list(void *ptr)
+// {
+// 	t_zone	*tmp;
+// 	t_alloc	*tmp_zone;
 
-void	find_in_list(void *ptr, t_alloc *ptr_arr[3])
-{
-	int		i;
-	t_alloc	*tmp;
-	t_alloc *last;
-
-	i = 0;
-	while (i < 3)
-	{
-		tmp = ptr_arr[i];
-		last = tmp;
-		while (tmp)
-		{
-			if (tmp->address == ptr)
-			{
-				free_ptr(tmp, last, i);
-				return;
-			}
-			last = tmp;
-			tmp = tmp->next;
-		}
-		i++;
-	}
-}
+// 	tmp = global_info->start;
+// 	while (tmp && (void*)tmp > ptr && tmp->end < ptr)
+// 	{
+// 		tmp = tmp->next;
+// 	}
+// 	if (tmp && tmp->status == LARGE_STATUS)
+// 	{
+// 		if (tmp->prev)
+// 			tmp->prev->next = tmp->next;
+// 		if (tmp->next)
+// 			tmp->next->prev = tmp->prev;
+// 		if (tmp == global_info->start)
+// 			global_info->start = global_info->start->next;
+// 		munmap(tmp, tmp->start->size + sizeof(t_zone));
+// 	} else if (tmp) {
+// 		tmp_zone = tmp->start;
+// 		while (tmp_zone)
+// 		{
+// 			if (tmp_zone->address == ptr)
+// 				tmp->free_nbr++;
+// 				tmp_zone->status = NOALLOC;
+// 			tmp_zone = tmp_zone->next;
+// 		}
+// 	}
+// }
 
 void	free(void *ptr)
 {
-	t_alloc	*ptr_arr[3];
-
-	ptr_arr[0] = global_info->small;
-	ptr_arr[1] = global_info->medium;
-	ptr_arr[2] = global_info->large;
-	if (ptr && global_info != NULL)
-	{
-		find_in_list(ptr, ptr_arr);
-	}
+	(void)ptr;
+	// ft_putstr("free\n");
+	// if (ptr && global_info != NULL)
+	// {
+	// 	find_in_list(ptr);
+	// }
 }

@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/13 13:24:04 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:50:35 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,46 @@
 
 # define NOALLOC                0
 # define ALLOCATED              1
-# define TINY                   64
-# define SMALL                  128
+# define TINY_STATUS            0
+# define TINY                   96
+# define SMALL                  224
+# define SMALL_STATUS           1
+# define LARGE_STATUS           2
 # define MIN_ALLOCATION_BY_ZONE 100
+# define PAGESIZE               getpagesize()
+# define GET_STATUS(x)          x <= TINY ? TINY_STATUS : x <= SMALL ? SMALL_STATUS : LARGE_STATUS 
 
-typedef struct  s_zone_info
+typedef struct      s_zone_info
 {
-    int         chunk_number;
-    int         zone_size;
-    void        *start;
-}               t_zone_info;
+    int             chunk_number;
+    int             zone_size;
+    unsigned char   status;
+}                   t_zone_info;
 
 typedef struct  s_alloc
 {
     void            *address;
-    int             status;
-    int             size;
+    unsigned char   status;
+    unsigned int    size;
     struct s_alloc  *next;
-    struct t_alloc  *prev;
+    struct s_alloc  *prev;
 }               t_alloc;
+
+typedef struct      s_zone
+{
+    t_alloc         *start;
+    unsigned char   status;
+    unsigned int    free_nbr;
+    unsigned int    size;
+    void            *end;
+    struct s_zone   *next;
+    struct s_zone   *prev;
+}                   t_zone;
 
 typedef struct  s_info
 {
-    t_alloc     *small;
-    t_zone_info small_info;
-    t_alloc     *medium;
-    t_zone_info medium_info;
-    t_alloc     *large;
+    t_zone      *start;
+    t_zone      *current;
 }               t_info;
 
 extern t_info   *global_info;
