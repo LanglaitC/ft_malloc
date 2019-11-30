@@ -6,11 +6,20 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/15 16:34:06 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/30 14:43:34 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
+
+// ft_puta
+
+void    ft_putadrr(int addr, char base[16]) {
+    if ((int)addr > 16) {
+        ft_putadrr(addr / 16, base);
+    }
+    ft_putchar(base[addr % 16]);
+}
 
 void    show_zone(t_alloc *start) {
     t_alloc *tmp;
@@ -21,7 +30,9 @@ void    show_zone(t_alloc *start) {
     while (tmp) {
         if (tmp->status == ALLOCATED) {
             ft_putstr("Zone: ");
-            ft_putnbr(tmp->size);
+            ft_putadrr((int)tmp, "0123456789abcdef");
+            ft_putstr(" - ");
+            ft_putadrr((int)tmp->address, "0123456789abcdef");
             ft_putstr("\n");
         }
         tmp = tmp->next;
@@ -33,6 +44,7 @@ void    show_alloc_mem() {
     t_zone  *tmp;
     char    *types[3];
 
+    ft_putstr("\n------------------ SHOW ------------------\n");
     types[0] = "TINY :\n";
     types[1] = "SMALL :\n";
     types[2] = "MEDIUM :\n";
@@ -45,5 +57,4 @@ void    show_alloc_mem() {
             ft_putstr("\n");
         }
     }
-    ft_putstr("\n------------------ SHOW ------------------\n");
 }

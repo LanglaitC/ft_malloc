@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/15 16:36:53 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/11/30 13:35:13 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void    insert_new_zone(t_zone *new) {
         global_info->start = new;
     } else {
         tmp = global_info->start;
-        if (tmp->prev == NULL) {
+        if (tmp->prev == NULL && tmp < new) {
             new->next = tmp;
             tmp->prev = new;
             global_info->start = new;
@@ -56,7 +56,7 @@ void    insert_new_zone(t_zone *new) {
             while (tmp != NULL && tmp < new && tmp->next) {
                 tmp = tmp->next;
             }
-            if (tmp < new) {
+            if (tmp != NULL && tmp < new) {
                 tmp->prev->next = new;
                 new->prev = tmp->prev;
                 new->next = tmp;
@@ -81,19 +81,25 @@ static void allocate_zone(size_t size) {
     {
         info.status = GET_STATUS(size);
         tmp = global_info->start;
-        while (tmp != NULL && (tmp->status != info.status || tmp->free_nbr == 0))
+        while (tmp != NULL && (tmp->status != info.status))
             tmp = tmp->next;
     }
      if (tmp == NULL)
      {
         info = get_best_alloc_size_for_zone(size, GET_STATUS(size));
+        // ft_putstr("\nTest =================\n");
+        // ft_putstr("Chunk number:");
+        // ft_putnbr(info.chunk_number);
+        // ft_putstr("\nZone size: ");
+        // ft_putnbr(info.zone_size);
+        // ft_putchar('\n');
         tmp = mmap(0, sizeof(t_zone) + info.zone_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
         tmp->size = info.zone_size;
         tmp->status = info.status;
         tmp->free_nbr = info.chunk_number;
-        tmp->start = (t_alloc*)(tmp + sizeof(t_zone));
+        tmp->start = (t_alloc*)(tmp + (sizeof(t_zone) / sizeof(t_zone)));
         tmp->start->status = NOALLOC;
-        tmp->start->address = tmp->start + sizeof(t_alloc);
+        tmp->start->address = tmp->start + (sizeof(t_alloc) / sizeof(t_alloc));
         tmp->end = tmp + info.zone_size;
         insert_new_zone(tmp);
     }

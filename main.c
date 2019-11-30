@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   realloc.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/30 15:02:35 by clanglai         ###   ########.fr       */
+/*   Created: 2019/11/02 10:36:03 by clanglai          #+#    #+#             */
+/*   Updated: 2019/11/15 08:00:33 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_malloc.h"
+#include "inc/ft_malloc.h"
 
-void    *realloc(void* ptr, size_t size) {
-    ft_putstr("realloc\n");
-    (void)ptr;
-    // if (ptr == NULL) {
-        return malloc(size);
-    // }
-    // return NULL;
+int main(void) {
+    printf("%d\n", sizeof(t_alloc));
+    return 0;
 }
