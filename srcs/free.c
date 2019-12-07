@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/30 15:54:47 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/07 14:58:26 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,20 @@ void	free(void *ptr)
 		if (used_zone == global_info->start)
 		{
 			if (global_info->start->prev) {
-				global_info->start = used_zone->start->prev;
+				global_info->start = used_zone->prev;
 			} else {
-				global_info->start = used_zone->start->next;
+				global_info->start = used_zone->next;
 			}
 		}
-		munmap(used_zone, used_zone->start->size + (sizeof(t_zone) / sizeof(int)));
+		munmap(used_zone, used_zone->size + sizeof(t_zone));
 	} else if (used_zone) {
 		tmp = used_zone->start;
 		while (tmp)
 		{
-			if (tmp->address == ptr)
+			if (tmp->address == ptr) {
 				used_zone->free_nbr++;
 				tmp->status = NOALLOC;
+			}
 			tmp = tmp->next;
 		}
 	}

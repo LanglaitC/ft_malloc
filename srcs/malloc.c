@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/30 14:54:34 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/07 14:45:38 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void    *create_new_chunk(t_alloc *last, int size) {
     }
     new->size = size;
     new->address = new + (sizeof(t_alloc) / sizeof(t_alloc));
-    // ft_putstr("\nOh\n");
-    // ft_putnbr((int)new);
-    // ft_putstr("\nHey\n");
-    // ft_putnbr((int)new->address);
     new->status = ALLOCATED;
     return new->address;
 }
@@ -67,11 +63,6 @@ void    *malloc(size_t size) {
     void*   result;
     //show_alloc_mem();
     global_info = get_info_variable(size);
-    // ft_putchar('\n');
     result = allocate_memory(size);
-    if (result == NULL)
-    {
-        ft_putstr("Watch out\n");
-    }
     return result;
 }

@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/30 14:43:34 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/07 14:42:40 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,18 @@ void    show_zone(t_alloc *start) {
 
     i = 0;
     tmp = start;
+    ft_putstr("0x");
+    ft_putadrr((int)start, "0123456789ABCDEF");
+    ft_putchar('\n');
     while (tmp) {
         if (tmp->status == ALLOCATED) {
-            ft_putstr("Zone: ");
-            ft_putadrr((int)tmp, "0123456789abcdef");
-            ft_putstr(" - ");
-            ft_putadrr((int)tmp->address, "0123456789abcdef");
-            ft_putstr("\n");
+            ft_putstr("0x");
+            ft_putadrr((int)tmp, "0123456789ABCDEF");
+            ft_putstr(" - 0x");
+            ft_putadrr((int)tmp->address, "0123456789ABCDEF");
+            ft_putstr(" : ");
+            ft_putnbr(tmp->size);
+            ft_putstr(" octets\n");
         }
         tmp = tmp->next;
         i++;
@@ -45,9 +50,9 @@ void    show_alloc_mem() {
     char    *types[3];
 
     ft_putstr("\n------------------ SHOW ------------------\n");
-    types[0] = "TINY :\n";
-    types[1] = "SMALL :\n";
-    types[2] = "MEDIUM :\n";
+    types[0] = "TINY : ";
+    types[1] = "SMALL : ";
+    types[2] = "MEDIUM : ";
     if (global_info != NULL) {
         tmp = global_info->start;
         while (tmp) {
