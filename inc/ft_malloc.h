@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/15 14:50:35 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:05:52 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ typedef struct      s_zone
 {
     t_alloc         *start;
     unsigned char   status;
-    unsigned int    free_nbr;
+    unsigned char   free_nbr;
     unsigned int    size;
-    void            *end;
     struct s_zone   *next;
     struct s_zone   *prev;
 }                   t_zone;
@@ -69,6 +68,8 @@ void            free(void *ptr);
 void            *malloc(size_t size);
 void            *realloc(void *ptr, size_t size);
 void            show_alloc_mem();
+void            ft_putadrr(int addr, char base[16]);
+t_zone          *find_zone_in_list(void *ptr);
 t_info          *get_info_variable();
 
 #endif

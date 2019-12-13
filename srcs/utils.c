@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/07 14:43:47 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:43:24 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ static t_zone_info get_best_alloc_size_for_zone(int size, unsigned char status) 
     size_by_status[1] = SMALL;
     size_by_status[2] = size;
 
-    i = 0;
     info.status = status;
     if (info.status == LARGE_STATUS)
     {
-        info.zone_size = size + sizeof(t_alloc);
-        i++;
+        info.zone_size = ((info.zone_size + size + sizeof(t_alloc) + PAGESIZE) / PAGESIZE) * PAGESIZE;
+        i = 1;
     } else
     {
+        info.zone_size = PAGESIZE;
+        i = (PAGESIZE - sizeof(t_zone)) / (size_by_status[info.status] + sizeof(t_alloc));
         while (i < MIN_ALLOCATION_BY_ZONE) {
             i += PAGESIZE / (size_by_status[info.status] + sizeof(t_alloc));
             info.zone_size += PAGESIZE;
@@ -94,7 +95,6 @@ static void allocate_zone(size_t size) {
         tmp->start = (t_alloc*)(tmp + (sizeof(t_zone) / sizeof(t_zone)));
         tmp->start->status = NOALLOC;
         tmp->start->address = tmp->start + (sizeof(t_alloc) / sizeof(t_alloc));
-        tmp->end = tmp + info.zone_size;
         insert_new_zone(tmp);
     }
     global_info->current = tmp;
