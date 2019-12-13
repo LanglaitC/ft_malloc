@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/13 17:17:19 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:50:34 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,11 @@
 void    *try_reallocate(t_zone *zone, void* init_ptr, size_t size) {
     void *new;
 
-    ft_putstr("Try reallocate\n");
     (void)zone;
     new = malloc(size);
     if (new)
     {
-        ft_putstr("Startcopy\n");
         ft_memcpy(new, init_ptr, size);
-        ft_putstr("Endcopy\n");
     }
     return new;
 }
@@ -62,13 +59,13 @@ void    *realloc(void* ptr, size_t size) {
                 allocated_ptr->size = size;
                 return ptr;
             } else if (status == LARGE_STATUS && status == GET_STATUS(size)) {
-                return try_reallocate(allocated_zone, ptr, size);
+                return (try_reallocate(allocated_zone, ptr, size));
             } else {
                 free(ptr);
-                return malloc(size);
+                return (malloc(size));
             }
         }
-        return malloc(size);
+        return (malloc(size));
     }
-    return NULL;
+    return (NULL);
 }

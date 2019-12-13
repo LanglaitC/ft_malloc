@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/13 16:42:45 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:30:36 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void    show_alloc_mem() {
     types[0] = "TINY : ";
     types[1] = "SMALL : ";
     types[2] = "MEDIUM : ";
-    if (global_info != NULL) {
-        tmp = global_info->start;
+    if (g_info != NULL) {
+        tmp = g_info->start;
         while (tmp) {
             ft_putstr(types[tmp->status]);
             show_zone(tmp, tmp->start);

@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/13 17:15:48 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:30:36 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 t_zone	*find_zone_in_list(void *ptr) {
 	t_zone *tmp_zone;
 
-	if (global_info == NULL || ptr == NULL)
+	if (g_info == NULL || ptr == NULL)
 		return NULL;
-	tmp_zone = global_info->start;
+	tmp_zone = g_info->start;
 	while (tmp_zone && (int)tmp_zone > (int)ptr && (void*)(tmp_zone + tmp_zone->size / sizeof(t_zone)) < ptr) {
 		tmp_zone = tmp_zone->next;
 	}
@@ -38,12 +38,12 @@ void	free(void *ptr)
 				used_zone->prev->next = used_zone->next;
 			if (used_zone->next)
 				used_zone->next->prev = used_zone->prev;
-			if (used_zone == global_info->start)
+			if (used_zone == g_info->start)
 			{
-				if (global_info->start->prev) {
-					global_info->start = used_zone->prev;
+				if (g_info->start->prev) {
+					g_info->start = used_zone->prev;
 				} else {
-					global_info->start = used_zone->next;
+					g_info->start = used_zone->next;
 				}
 			}
 			munmap((void*)used_zone, used_zone->size);
