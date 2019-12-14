@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/13 17:52:17 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/14 14:27:08 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_zone_info	get_best_alloc_size_for_zone(int size, unsigned char status)
 	info.status = status;
 	if (info.status == LARGE_STATUS)
 	{
-		info.zone_size = (info.zone_size + size + sizeof(t_alloc) + PAGESIZE)
+		info.zone_size = (size + sizeof(t_alloc) + PAGESIZE)
 		/ PAGESIZE * PAGESIZE;
 		info.chunk_number = 1;
 		return (info);
