@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 17:02:42 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:14:48 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			*realloc(void *ptr, size_t size)
 		if (allocated_ptr)
 		{
 			status = get_status(allocated_ptr->size);
-			if (status < LARGE_STATUS && status == get_status(size))
+			if (status != LARGE_STATUS && status == get_status(size))
 			{
 				allocated_ptr->size = size;
 				ft_putstr("-------- End Realloc ---------\n");
