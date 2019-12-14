@@ -6,21 +6,33 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 14:33:54 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:02:42 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_malloc.h"
 
-static void		*try_reallocate(t_zone *zone, void *init_ptr, size_t size)
+int				get_status(size_t size)
 {
-	void *new;
+	if (size < TINY) {
+		return TINY_STATUS;
+	} else if (size < SMALL) {
+		return SMALL_STATUS;
+	}
+	return LARGE_STATUS;
+}
 
-	(void)zone;
+static void		*try_reallocate(t_alloc *initial, size_t size)
+{
+	void	*new;
+	size_t	max_size;
+
+	max_size = initial->size > size ? size : initial->size;
 	new = malloc(size);
 	if (new)
 	{
-		ft_memcpy(new, init_ptr, size);
+		memcpy(new, initial->address, max_size);
+		free(initial->address);
 	}
 	return (new);
 }
@@ -28,7 +40,7 @@ static void		*try_reallocate(t_zone *zone, void *init_ptr, size_t size)
 static t_alloc	*find_alloc_in_list(void *ptr, t_zone *zone)
 {
 	t_alloc *tmp;
-
+	
 	if (zone != NULL)
 	{
 		tmp = zone->start;
@@ -62,23 +74,15 @@ void			*realloc(void *ptr, size_t size)
 		allocated_ptr = find_alloc_in_list(ptr, allocated_zone);
 		if (allocated_ptr)
 		{
-			status = GET_STATUS(allocated_ptr->size);
-			if (status < LARGE_STATUS && status == GET_STATUS(size))
+			status = get_status(allocated_ptr->size);
+			if (status < LARGE_STATUS && status == get_status(size))
 			{
 				allocated_ptr->size = size;
+				ft_putstr("-------- End Realloc ---------\n");
 				return (ptr);
 			}
-			else if (status == LARGE_STATUS && status == GET_STATUS(size))
-			{
-				ft_putstr("-------- End Realloc ---------\n");
-				return (try_reallocate(allocated_zone, ptr, size));
-			}
-			else
-			{
-				free(ptr);
-				ft_putstr("-------- End Realloc ---------\n");
-				return (malloc(size));
-			}
+			ft_putstr("-------- End Realloc ---------\n");
+			return try_reallocate(allocated_ptr, size);
 		}
 		ft_putstr("-------- End Realloc ---------\n");
 		return (malloc(size));

@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 15:01:01 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:01:54 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,13 @@ void	*malloc(size_t size)
 	void	*result;
 
 	ft_putstr("-------- Start Malloc --------\n");
+	ft_putstr("Size: ");
+	ft_putnbr(size);
+	ft_putstr(" ----------- \n");
 	g_info = get_info_variable(size);
 	g_info->current->free_nbr--;
-	ft_putstr("Size: ");
-	ft_putnbr(g_info->current->size);
-	ft_putstr(" ---- free number: ");
-	ft_putnbr(g_info->current->free_nbr);
-	ft_putchar('\n');
 	result = allocate_memory(size);
+	ft_putstr("-------- End Malloc --------\n");
 	// show_alloc_mem();
-	ft_putstr("-------- End Malloc ----------\n");
 	return (result);
 }

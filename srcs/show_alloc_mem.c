@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 14:16:13 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/14 15:41:46 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	show_zone(t_zone *zone_start, t_alloc *start)
 	ft_putchar('\n');
 	while (tmp)
 	{
-		if (tmp->status == ALLOCATED)
-		{
+		// if (tmp->status == ALLOCATED)
+		// {
 			ft_putstr("0x");
 			ft_putadrr((int)tmp->address, "0123456789ABCDEF");
 			ft_putstr(" - 0x");
@@ -42,7 +42,7 @@ void	show_zone(t_zone *zone_start, t_alloc *start)
 			ft_putstr(" : ");
 			ft_putnbr(tmp->size);
 			ft_putstr(" octets\n");
-		}
+		// }
 		tmp = tmp->next;
 		i++;
 	}

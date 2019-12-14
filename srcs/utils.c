@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 14:27:08 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/14 15:27:54 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_info				*get_info_variable(size_t size)
 		g_info = mmap(0, sizeof(t_info),
 		PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	}
-	info = get_best_alloc_size_for_zone(size, GET_STATUS(size));
+	info = get_best_alloc_size_for_zone(size, get_status(size));
 	g_info->current = search_free_zone(info);
 	if (g_info->current == NULL)
 	{

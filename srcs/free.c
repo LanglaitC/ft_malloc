@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 15:11:59 by clanglai         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:03:23 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,10 @@ void	free(void *ptr)
 	t_alloc	*tmp;
 	t_zone	*used_zone;
 
-	ft_putstr("-------- Start Free ----------\n");
+	ft_putstr("-------- Start Free ------\n");
 	used_zone = find_zone_in_list(ptr);
 	if (used_zone && used_zone->status == LARGE_STATUS)
 	{
-		ft_putstr("Zone size: ");
-		// ft_putnbr(used_zone->size);
-		ft_putadrr((int)used_zone, "0123456789ABCEDF");
-		ft_putstr(" ------ ");
-		ft_putadrr((int)ptr, "0123456789ABCEDF");
-		// ft_putnbr(used_zone->start->size);
-		ft_putstr(" ---- status: ");
 		if (used_zone->prev)
 			used_zone->prev->next = used_zone->next;
 		if (used_zone->next)
@@ -62,8 +55,7 @@ void	free(void *ptr)
 			else
 				g_info->start = used_zone->next;
 		}
-		ft_putnbr(munmap((void*)used_zone, used_zone->size));
-		ft_putchar('\n');
+		munmap((void*)used_zone, used_zone->size);
 	}
 	else if (used_zone)
 	{
@@ -78,5 +70,5 @@ void	free(void *ptr)
 			tmp = tmp->next;
 		}
 	}
-	ft_putstr("-------- End Free ------------\n");
+	ft_putstr("-------- End Free ------\n");
 }
