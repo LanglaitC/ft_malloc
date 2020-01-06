@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 15:32:50 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/03 13:52:56 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ extern t_info   *g_info;
 void            free(void *ptr);
 void            *malloc(size_t size);
 void            *realloc(void *ptr, size_t size);
+void            *calloc(size_t count, size_t size);
 void            show_alloc_mem(void);
 void            ft_putadrr(int addr, char base[16]);
 int             get_status(size_t size);
 t_zone          *find_zone_in_list(void *ptr);
-t_info          *get_info_variable();
+t_info          *get_info_variable(size_t size, int nb_to_alloc);
 
 #endif

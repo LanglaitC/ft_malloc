@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2019/12/14 17:14:48 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/03 08:24:22 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ void			*realloc(void *ptr, size_t size)
 	t_alloc	*allocated_ptr;
 	char	status;
 
-	ft_putstr("-------- Start Realloc -------\n");
 	if (ptr == NULL)
 	{
-		ft_putstr("-------- End Realloc ---------\n");
 		return (malloc(size));
 	}
 	else if (size == 0)
@@ -78,15 +76,11 @@ void			*realloc(void *ptr, size_t size)
 			if (status != LARGE_STATUS && status == get_status(size))
 			{
 				allocated_ptr->size = size;
-				ft_putstr("-------- End Realloc ---------\n");
 				return (ptr);
 			}
-			ft_putstr("-------- End Realloc ---------\n");
 			return try_reallocate(allocated_ptr, size);
 		}
-		ft_putstr("-------- End Realloc ---------\n");
 		return (malloc(size));
 	}
-	ft_putstr("-------- End Realloc ---------\n");
 	return (NULL);
 }
