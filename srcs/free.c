@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/06 17:05:39 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:37:13 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	handle_large_zone(t_zone *used_zone)
 		else
 			g_info->start = used_zone->next;
 	}
-	munmap((void*)used_zone, used_zone->size);
 }
 
 void		free(void *ptr)
