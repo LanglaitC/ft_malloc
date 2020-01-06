@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/03 09:23:53 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:45:35 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,10 @@ void	*malloc(size_t size)
 {
 	void	*result;
 
-	
 	if (get_info_variable(size, 1) == NULL) {
 		return (NULL);
 	}
 	g_info->current->free_nbr--;
 	result = allocate_memory(size);
-	// show_alloc_mem();
 	return (result);
 }

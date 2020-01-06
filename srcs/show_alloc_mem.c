@@ -6,15 +6,15 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/03 08:43:30 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/06 14:13:56 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-void	ft_putadrr(int addr, char base[16])
+void	ft_putadrr(unsigned int addr, char base[16])
 {
-	if ((int)addr > 16)
+	if (addr > 16)
 		ft_putadrr(addr / 16, base);
 	ft_putchar(base[addr % 16]);
 }
@@ -27,16 +27,16 @@ void	show_zone(t_zone *zone_start, t_alloc *start)
 	i = 0;
 	tmp = start;
 	ft_putstr("0x");
-	ft_putadrr((int)zone_start, "0123456789ABCDEF");
+	ft_putadrr((unsigned int)zone_start, "0123456789ABCDEF");
 	ft_putstr(" --- size: ");
 	ft_putnbr(zone_start->size);
 	ft_putchar('\n');
 	while (tmp)
 	{
 		ft_putstr("0x");
-		ft_putadrr((int)tmp->address, "0123456789ABCDEF");
+		ft_putadrr((unsigned int)tmp->address, "0123456789ABCDEF");
 		ft_putstr(" - 0x");
-		ft_putadrr((int)(tmp->address + tmp->size), "0123456789ABCDEF");
+		ft_putadrr((unsigned int)(tmp->address + tmp->size), "0123456789ABCDEF");
 		ft_putstr(" : ");
 		ft_putnbr(tmp->size);
 		ft_putstr(" octets\n");
@@ -50,6 +50,7 @@ void	show_alloc_mem(void)
 	t_zone	*tmp;
 	char	*types[3];
 
+	ft_putstr("\n-------- START -------------\n");
 	types[0] = "TINY : ";
 	types[1] = "SMALL : ";
 	types[2] = "MEDIUM : ";
@@ -64,4 +65,5 @@ void	show_alloc_mem(void)
 			ft_putstr("\n");
 		}
 	}
+	ft_putstr("\n-------- END -------------\n");
 }

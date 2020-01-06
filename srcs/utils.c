@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/03 13:52:37 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:39:16 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void				insert_new_zone(t_zone *new)
 	else
 	{
 		tmp = g_info->start;
-		if (tmp->prev == NULL && (long int)tmp < (long int)new)
+		if (tmp->prev == NULL && (unsigned int)tmp < (unsigned int)new)
 		{
 			new->next = tmp;
 			tmp->prev = new;
@@ -63,9 +63,9 @@ void				insert_new_zone(t_zone *new)
 		}
 		else
 		{
-			while (tmp != NULL && (long int)tmp < (long int)new && tmp->next)
+			while (tmp != NULL && (unsigned int)tmp > (unsigned int)new && tmp->next)
 				tmp = tmp->next;
-			if (tmp != NULL && tmp < new)
+			if (tmp != NULL && (unsigned int)tmp < (unsigned int)new)
 			{
 				tmp->prev->next = new;
 				new->prev = tmp->prev;
@@ -103,7 +103,7 @@ static t_zone		*allocate_zone(t_zone_info info)
 {
 	t_zone	*tmp;
 
-	tmp = mmap(0, sizeof(t_zone) + info.zone_size,
+	tmp = mmap(0, info.zone_size,
 	PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	if (tmp == NULL) {
 		return (NULL);
