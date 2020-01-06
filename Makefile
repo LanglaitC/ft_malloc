@@ -6,7 +6,7 @@
 #    By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 13:42:54 by clanglai          #+#    #+#              #
-#    Updated: 2019/11/07 12:22:55 by clanglai         ###   ########.fr        #
+#    Updated: 2020/01/06 17:11:44 by clanglai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRC_FILES=	malloc.c \
 			free.c \
 			realloc.c \
 			utils.c \
-			show_alloc_mem.c
+			show_alloc_mem.c \
+		calloc.c
 INC_FILE=ft_malloc.h
 INC_PATH=inc
 SRC_PATH=srcs

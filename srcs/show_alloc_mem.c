@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/06 14:13:56 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/06 16:52:29 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	show_zone(t_zone *zone_start, t_alloc *start)
 		ft_putstr("0x");
 		ft_putadrr((unsigned int)tmp->address, "0123456789ABCDEF");
 		ft_putstr(" - 0x");
-		ft_putadrr((unsigned int)(tmp->address + tmp->size), "0123456789ABCDEF");
+		ft_putadrr((unsigned int)(tmp->address + tmp->size),
+			"0123456789ABCDEF");
 		ft_putstr(" : ");
 		ft_putnbr(tmp->size);
 		ft_putstr(" octets\n");

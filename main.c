@@ -6,13 +6,18 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 10:36:03 by clanglai          #+#    #+#             */
-/*   Updated: 2019/11/15 08:00:33 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:43:09 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/ft_malloc.h"
 
 int main(void) {
-    printf("%d\n", sizeof(t_alloc));
+    int i = 0;
+    while (i < 1000) {
+        malloc(10);
+        write(1, "oh\n", 1);
+        i++;
+    }
     return 0;
 }

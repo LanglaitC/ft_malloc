@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/06 15:45:35 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:19:18 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,12 @@ void	*create_new_chunk(t_alloc *last, int size)
 
 void	*allocate_memory(size_t size)
 {
-	t_alloc	*new;
 	t_alloc	*tmp;
 	t_alloc	*last;
 
+	g_info->current->free_nbr--;
 	tmp = g_info->current->start;
 	last = tmp;
-	if (g_info->current->status == LARGE_STATUS)
-	{
-		new = g_info->current->start;
-		new->size = size;
-		new->status = ALLOCATED;
-		new->address = new + (sizeof(t_alloc) / sizeof(t_alloc));
-		return (new->address);
-	}
 	while (tmp != NULL && tmp->status != NOALLOC)
 	{
 		last = tmp;
@@ -70,10 +62,8 @@ void	*malloc(size_t size)
 {
 	void	*result;
 
-	if (get_info_variable(size, 1) == NULL) {
+	if (get_info_variable(size, 1) == NULL)
 		return (NULL);
-	}
-	g_info->current->free_nbr--;
 	result = allocate_memory(size);
 	return (result);
 }
