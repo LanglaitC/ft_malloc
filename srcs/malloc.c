@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 17:05:31 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:40:20 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*create_new_chunk(t_alloc *last, int size)
 	}
 	else
 	{
-		to_jump = (last->size < TINY ? TINY : SMALL) + sizeof(t_alloc);
+		to_jump = last->size + sizeof(t_alloc);
 		new = last + (to_jump / sizeof(t_alloc));
 		last->next = new;
 		new->prev = last;
@@ -41,10 +41,10 @@ void	*allocate_memory(size_t size)
 	t_alloc	*tmp;
 	t_alloc	*last;
 
-	g_info->current->free_nbr--;
+	g_info->current->free_size -= (size + sizeof(t_alloc));
 	tmp = g_info->current->start;
 	last = tmp;
-	while (tmp != NULL && tmp->status != NOALLOC)
+	while (tmp != NULL && (tmp->status != NOALLOC || tmp->size < size))
 	{
 		last = tmp;
 		tmp = tmp->next;
@@ -62,8 +62,11 @@ void	*malloc(size_t size)
 {
 	void	*result;
 
+	ft_putstr("Malloc -- 1");
 	if (get_info_variable(size) == NULL)
 		return (NULL);
+	ft_putstr("Malloc -- 2");
 	result = allocate_memory(size);
+	ft_putstr("Malloc -- 3\n");
 	return (result);
 }

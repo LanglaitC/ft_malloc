@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 12:07:10 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:27:22 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define NOALLOC                0
 # define ALLOCATED              1
 # define TINY_STATUS            0
-# define TINY                   224
-# define SMALL                  480
+# define TINY                   512
+# define SMALL                  1026
 # define SMALL_STATUS           1
 # define LARGE_STATUS           2
 # define MIN_ALLOCATION_BY_ZONE 100
@@ -49,7 +49,7 @@ typedef struct      s_zone
 {
     t_alloc         *start;
     unsigned char   status;
-    unsigned char   free_nbr;
+    unsigned int    free_size;
     unsigned int    size;
     struct s_zone   *next;
     struct s_zone   *prev;

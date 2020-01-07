@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 10:26:10 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:38:23 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ void		free(void *ptr)
 		while (tmp)
 		{
 			if (tmp->address == ptr)
-			{
-				used_zone->free_nbr++;
 				tmp->status = NOALLOC;
-			}
 			tmp = tmp->next;
 		}
 	}

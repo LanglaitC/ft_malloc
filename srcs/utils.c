@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 12:20:29 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:39:33 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,32 @@ void				insert_new_zone(t_zone *new)
 	}
 }
 
-static t_zone		*search_free_zone(t_zone_info info)
+static t_zone		*search_free_zone(t_zone_info info, size_t size)
 {
 	t_zone	*tmp;
+	t_alloc *tmp_alloc;
 
-	tmp = NULL;
-	if (g_info->start != NULL)
+	if (g_info->start == NULL)
+		return NULL;
+	tmp = g_info->start;
+	while (tmp != NULL)
 	{
-		tmp = g_info->start;
-		while (tmp != NULL)
+		if (tmp->status == info.status)
 		{
-			if (tmp->status == info.status && tmp->free_nbr)
+			if (tmp->free_size >= size + sizeof(t_alloc))
 				break ;
-			tmp = tmp->next;
+			tmp_alloc = tmp->start;
+			while (tmp_alloc != NULL)
+			{
+				if (tmp_alloc->status == NOALLOC && tmp_alloc->size >= size)
+					return tmp;
+				tmp_alloc = tmp_alloc->next;
+			}
 		}
+			break ;
+		tmp = tmp->next;
 	}
-	return (tmp);
+	return tmp;
 }
 
 static t_zone		*allocate_zone(t_zone_info info)
@@ -104,7 +114,7 @@ static t_zone		*allocate_zone(t_zone_info info)
 	}
 	tmp->size = info.zone_size;
 	tmp->status = info.status;
-	tmp->free_nbr = info.chunk_number;
+	tmp->free_size = tmp->size - sizeof(t_zone);
 	tmp->start = (t_alloc*)(tmp + (sizeof(t_zone) / sizeof(t_zone)));
 	tmp->start->status = NOALLOC;
 	tmp->start->address = tmp->start + (sizeof(t_alloc) / sizeof(t_alloc));
@@ -128,7 +138,7 @@ t_info				*get_info_variable(size_t size)
 		}
 	}
 	info = get_best_alloc_size_for_zone(size);
-	g_info->current = search_free_zone(info);
+	g_info->current = search_free_zone(info, size);
 	if (g_info->current == NULL)
 	{
 		g_info->current = allocate_zone(info);
