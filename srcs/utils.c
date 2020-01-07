@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/06 16:55:24 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/07 10:28:26 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,9 @@ t_info				*get_info_variable(size_t size, int nb_to_alloc)
 	}
 	info = get_best_alloc_size_for_zone(size, nb_to_alloc, nb_to_alloc >
 		MIN_ALLOCATION_BY_ZONE ? nb_to_alloc : MIN_ALLOCATION_BY_ZONE);
+	g_info->current = NULL;
 	if (nb_to_alloc == 1)
 		g_info->current = search_free_zone(info);
-	else
-		g_info->current = NULL;
 	if (g_info->current == NULL)
 	{
 		g_info->current = allocate_zone(info);
