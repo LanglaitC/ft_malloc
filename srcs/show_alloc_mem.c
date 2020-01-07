@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 10:10:25 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:19:07 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void	show_zone(t_zone *zone_start, t_alloc *start)
 	tmp = start;
 	ft_putstr("0x");
 	ft_putadrr((unsigned int)zone_start, "0123456789ABCDEF");
-	ft_putstr(" --- size: ");
-	ft_putnbr(zone_start->size);
-	ft_putstr(" --- free: ");
-	ft_putnbr(zone_start->free_nbr);
 	ft_putchar('\n');
 	while (tmp)
 	{
@@ -53,7 +49,6 @@ void	show_alloc_mem(void)
 	t_zone	*tmp;
 	char	*types[3];
 
-	ft_putstr("\n-------- START -------------\n");
 	types[0] = "TINY : ";
 	types[1] = "SMALL : ";
 	types[2] = "MEDIUM : ";
@@ -68,5 +63,4 @@ void	show_alloc_mem(void)
 			ft_putstr("\n");
 		}
 	}
-	ft_putstr("\n-------- END -------------\n");
 }

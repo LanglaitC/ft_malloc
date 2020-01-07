@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 10:05:08 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/01/07 12:07:10 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void            show_alloc_mem(void);
 void            ft_putadrr(unsigned int addr, char base[16]);
 int             get_status(size_t size);
 t_zone          *find_zone_in_list(void *ptr);
-t_info          *get_info_variable(size_t size, int nb_to_alloc);
+t_info          *get_info_variable(size_t size);
 void            *allocate_memory(size_t size);
 
 
