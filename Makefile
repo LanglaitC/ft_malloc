@@ -6,7 +6,7 @@
 #    By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 13:42:54 by clanglai          #+#    #+#              #
-#    Updated: 2020/01/06 17:11:44 by clanglai         ###   ########.fr        #
+#    Updated: 2020/01/07 16:54:02 by clanglai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ LIBC=$(addprefix $(LIB_PATH), $(LIB_NAME))
 ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
-NAME=libft_malloc_$(HOSTTYPE).so
+LIBEXTENSION=.so
+SUBNAME=libft_malloc
+NAME=$(SUBNAME)_$(HOSTTYPE)$(LIBEXTENSION)
+
 
 all: $(LIBC) $(NAME)
 
@@ -41,7 +44,7 @@ $(LIBC):
 
 $(NAME): $(OBJ) $(INC)
 	@gcc -shared -o $(NAME) -L$(LIB_PATH) -$(LIB_NAME) $(OBJ)
-	@ln -sf $(NAME) libft_malloc.so
+	@ln -sf $(NAME) $(SUBNAME)$(LIBEXTENSION)
 	@echo "\033[1;34m$(NAME)\033[1;32m...compiled\t✓\033[0m"
 
 $(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
@@ -56,5 +59,6 @@ clean:
 fclean: clean
 	@make -C $(LIB_PATH) fclean
 	@rm -rf $(NAME)
+	@rm -rf $(SUBNAME)$(LIBEXTENSION)
 
 re: fclean all
