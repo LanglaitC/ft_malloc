@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 10:28:57 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/02/08 11:44:00 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void		*try_reallocate(t_alloc *initial, size_t size)
 	new = malloc(size);
 	if (new)
 	{
-		memcpy(new, initial->address, max_size);
-		free(initial->address);
+		memcpy(new, (void*)initial + sizeof(t_alloc), max_size);
+		free((void*)initial + sizeof(t_alloc));
 	}
 	return (new);
 }
@@ -45,7 +45,7 @@ static t_alloc	*find_alloc_in_list(void *ptr, t_zone *zone)
 		tmp = zone->start;
 		while (tmp)
 		{
-			if (tmp->address == ptr)
+			if ((void*)tmp + sizeof(t_alloc) == ptr)
 				return (tmp);
 			tmp = tmp->next;
 		}
@@ -59,6 +59,8 @@ void			*realloc(void *ptr, size_t size)
 	t_alloc	*allocated_ptr;
 	char	status;
 
+	if (size % 16)
+		size += 16 - size % 16;
 	if (ptr == NULL)
 		return (malloc(size));
 	else if (size == 0)
@@ -71,7 +73,7 @@ void			*realloc(void *ptr, size_t size)
 	if (allocated_ptr)
 	{
 		status = get_status(allocated_ptr->size);
-		if (status != LARGE_STATUS && status == get_status(size))
+		if (status != LARGE_STATUS && size <= allocated_ptr->size)
 		{
 			allocated_ptr->size = size;
 			return (ptr);
