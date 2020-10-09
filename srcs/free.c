@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 17:38:23 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/10/09 14:15:12 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ static void	handle_large_zone(t_zone *used_zone)
 
 void		free(void *ptr)
 {
+	(void)ptr;
 	t_alloc	*tmp;
 	t_zone	*used_zone;
 
+	// ft_putstr("START FREE\n");
 	used_zone = find_zone_in_list(ptr);
 	if (used_zone && used_zone->status == LARGE_STATUS)
 		handle_large_zone(used_zone);
@@ -68,4 +70,5 @@ void		free(void *ptr)
 			tmp = tmp->next;
 		}
 	}
+	// ft_putstr("END FREE\n");
 }

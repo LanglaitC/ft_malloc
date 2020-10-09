@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test2.c                                            :+:      :+:    :+:   */
+/*   test5.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/22 10:54:18 by langlaitcor       #+#    #+#             */
-/*   Updated: 2020/09/22 10:54:20 by langlaitcor      ###   ########.fr       */
+/*   Created: 2020/09/22 10:58:26 by langlaitcor       #+#    #+#             */
+/*   Updated: 2020/09/22 10:58:32 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_malloc.h"
 
-int		main(void)
+int main()
 {
-	int		i;
-	char	*addr;
-
-	i = 0;
-	while (i < 1024)
-	{
-		addr = (char*)malloc(1024);
-		addr[0] = 42;
-		free(addr);
-		i++;
-	}
+	malloc(1024);
+	malloc(1024 * 32);
+	malloc(1024 * 1024);
+	malloc(1024 * 1024 * 16);
+	malloc(1024 * 1024 * 128);
+	show_alloc_mem();
 	return (0);
 }

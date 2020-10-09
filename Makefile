@@ -43,7 +43,7 @@ $(LIBC):
 	@make -C $(LIB_PATH)
 
 $(NAME): $(OBJ) $(INC)
-	@gcc -shared -o $(NAME) -L$(LIB_PATH) -$(LIB_NAME) $(OBJ)
+	@gcc -shared -o $(NAME) -L$(LIB_PATH) -$(LIB_NAME) $(OBJ) -g
 	@ln -sf $(NAME) $(SUBNAME)$(LIBEXTENSION)
 	@echo "\033[1;34m$(NAME)\033[1;32m...compiled\t✓\033[0m"
 

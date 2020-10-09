@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 17:39:33 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/09/22 13:45:55 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,12 @@ static t_zone		*search_free_zone(t_zone_info info, size_t size)
 				tmp_alloc = tmp_alloc->next;
 			}
 		}
-			break ;
 		tmp = tmp->next;
 	}
 	return tmp;
 }
 
-static t_zone		*allocate_zone(t_zone_info info)
+static t_zone		*allocate_zone(t_zone_info info, size_t size)
 {
 	t_zone	*tmp;
 
@@ -114,9 +113,10 @@ static t_zone		*allocate_zone(t_zone_info info)
 	}
 	tmp->size = info.zone_size;
 	tmp->status = info.status;
-	tmp->free_size = tmp->size - sizeof(t_zone);
+	tmp->free_size = tmp->size - sizeof(t_zone) - size - sizeof(t_alloc);
 	tmp->start = (t_alloc*)(tmp + (sizeof(t_zone) / sizeof(t_zone)));
 	tmp->start->status = NOALLOC;
+	tmp->start->size = size;
 	tmp->start->address = tmp->start + (sizeof(t_alloc) / sizeof(t_alloc));
 	if (g_info->start == NULL)
 		g_info->start = tmp;
@@ -141,7 +141,7 @@ t_info				*get_info_variable(size_t size)
 	g_info->current = search_free_zone(info, size);
 	if (g_info->current == NULL)
 	{
-		g_info->current = allocate_zone(info);
+		g_info->current = allocate_zone(info, size);
 		if (g_info->current == NULL) {
 			return (NULL);
 		}

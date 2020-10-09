@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test2.c                                            :+:      :+:    :+:   */
+/*   test4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/22 10:54:18 by langlaitcor       #+#    #+#             */
-/*   Updated: 2020/09/22 10:54:20 by langlaitcor      ###   ########.fr       */
+/*   Created: 2020/09/22 10:57:57 by langlaitcor       #+#    #+#             */
+/*   Updated: 2020/09/22 10:57:59 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <string.h>
 #include "../inc/ft_malloc.h"
 
-int		main(void)
+void print(char *s)
 {
-	int		i;
-	char	*addr;
+	write(1, s, strlen(s));
+}
 
-	i = 0;
-	while (i < 1024)
-	{
-		addr = (char*)malloc(1024);
-		addr[0] = 42;
-		free(addr);
-		i++;
-	}
-	return (0);
+int		main()
+{
+	char *addr;
+
+	addr = malloc(16);
+	free(NULL);
+	free((void *)addr + 5);
+	if (realloc((void *)addr + 5, 10) == NULL)
+		print("Bonjours\n");
 }

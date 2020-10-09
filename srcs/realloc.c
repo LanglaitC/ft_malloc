@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 17:39:12 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/10/09 14:33:35 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void		*try_reallocate(t_alloc *initial, size_t size)
 		memcpy(new, initial->address, max_size);
 		free(initial->address);
 	}
+	//ft_putstr("END_REALLOC\n");
 	return (new);
 }
 
@@ -59,10 +60,15 @@ void			*realloc(void *ptr, size_t size)
 	t_alloc	*allocated_ptr;
 	char	status;
 
-	if (ptr == NULL)
+	(void)ptr;
+	//ft_putstr("START REALLOC\n");
+	if (ptr == NULL) {
+		//ft_putstr("END REALLOC\n");
 		return (malloc(size));
+	}
 	else if (size == 0)
 	{
+		//ft_putstr("END_REALLOC\n");
 		free(ptr);
 		return (NULL);
 	}
@@ -72,14 +78,14 @@ void			*realloc(void *ptr, size_t size)
 	{
 		status = get_status(allocated_ptr->size);
 		if (status != LARGE_STATUS && status == get_status(size)
-		&& allocated_ptr->next && 
-		(unsigned int)(allocated_ptr->address + size) < 
-		(unsigned int)allocated_ptr->next)
+		&& allocated_ptr->next && allocated_ptr->size <= size)
 		{
+			//ft_putstr("END_REALLOC\n");
 			allocated_ptr->size = size;
 			return (ptr);
 		}
 		return (try_reallocate(allocated_ptr, size));
 	}
+	//ft_putstr("END_REALLOC\n");
 	return (malloc(size));
 }
