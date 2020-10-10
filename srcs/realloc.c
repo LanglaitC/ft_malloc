@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/09 14:33:35 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/10 15:43:17 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		*try_reallocate(t_alloc *initial, size_t size)
 		memcpy(new, initial->address, max_size);
 		free(initial->address);
 	}
-	//ft_putstr("END_REALLOC\n");
+	//ft_putstr("END REALLOC\n");
 	return (new);
 }
 
@@ -61,7 +61,7 @@ void			*realloc(void *ptr, size_t size)
 	char	status;
 
 	(void)ptr;
-	//ft_putstr("START REALLOC\n");
+	//ft_putstr("START_REALLOC\n");
 	if (ptr == NULL) {
 		//ft_putstr("END REALLOC\n");
 		return (malloc(size));
@@ -78,7 +78,7 @@ void			*realloc(void *ptr, size_t size)
 	{
 		status = get_status(allocated_ptr->size);
 		if (status != LARGE_STATUS && status == get_status(size)
-		&& allocated_ptr->next && allocated_ptr->size <= size)
+		&& allocated_ptr->next && allocated_ptr->size >= size)
 		{
 			//ft_putstr("END_REALLOC\n");
 			allocated_ptr->size = size;

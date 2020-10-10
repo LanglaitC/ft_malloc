@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 17:27:22 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/10/10 15:55:28 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ typedef struct  s_alloc
 typedef struct      s_zone
 {
     t_alloc         *start;
-    unsigned char   status;
+    unsigned int   status;
     unsigned int    free_size;
     unsigned int    size;
+    unsigned int    hey1;
+    unsigned int    hey2;
+    unsigned int    hey3;
     struct s_zone   *next;
     struct s_zone   *prev;
 }                   t_zone;

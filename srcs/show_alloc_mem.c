@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_alloc_mem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2020/01/07 14:19:07 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/10/10 15:59:06 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	show_zone(t_zone *zone_start, t_alloc *start)
 	tmp = start;
 	ft_putstr("0x");
 	ft_putadrr((unsigned int)zone_start, "0123456789ABCDEF");
+	ft_putstr(" - ");
+	ft_putadrr((unsigned int)zone_start + zone_start->size, "0123456789ABCDEF");
 	ft_putchar('\n');
 	while (tmp)
 	{
