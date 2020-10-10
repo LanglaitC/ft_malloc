@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 17:50:30 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/10 22:54:54 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int				get_status(size_t size)
 {
-	if (size < TINY)
+	if (size <= TINY)
 		return (TINY_STATUS);
-	else if (size < SMALL)
+	else if (size <= SMALL)
 		return (SMALL_STATUS);
 	return (LARGE_STATUS);
 }
@@ -69,9 +69,8 @@ void			*realloc(void *ptr, size_t size)
 	}
 	else if (size == 0)
 	{
-		//ft_putstr("END_REALLOC\n");
 		free(ptr);
-		return (NULL);
+		return malloc(0);
 	}
 	allocated_zone = find_zone_in_list(ptr);
 	allocated_ptr = find_alloc_in_list(ptr, allocated_zone);
@@ -85,10 +84,7 @@ void			*realloc(void *ptr, size_t size)
 			return (ptr);
 		}
 		return (try_reallocate(allocated_ptr, size));
-	} else {
-		ft_putstr("NOT FOUND\n");
-		exit(1);
 	}
 	//ft_putstr("END_REALLOC\n");
-	return (malloc(size));
+	return NULL;
 }
