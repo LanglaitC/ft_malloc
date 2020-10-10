@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 16:15:34 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/10 17:13:36 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_zone_info	get_best_alloc_size_for_zone(int size)
 	info.status = get_status(size);
 	if (info.status == LARGE_STATUS)
 	{
-		info.zone_size = (size + sizeof(t_alloc) + PAGESIZE)
+		info.zone_size = (size + sizeof(t_zone) + sizeof(t_alloc) + PAGESIZE)
 		/ PAGESIZE * PAGESIZE;
 		info.chunk_number = 1;
 		return (info);
@@ -48,7 +48,7 @@ void				insert_new_zone(t_zone *new)
 	t_zone	*tmp;
 
 	tmp = g_info->start;
-	if (tmp->prev == NULL && (unsigned int)tmp < (unsigned int)new)
+	if ((unsigned int)tmp < (unsigned int)new)
 	{
 		new->next = tmp;
 		tmp->prev = new;
@@ -56,9 +56,9 @@ void				insert_new_zone(t_zone *new)
 	}
 	else
 	{
-		while (tmp != NULL && (unsigned int)tmp < (unsigned int)new && tmp->next)
+		while ((unsigned int)tmp > (unsigned int)new && tmp->next)
 			tmp = tmp->next;
-		if (tmp != NULL && tmp->next)
+		if (tmp->next || (unsigned int)tmp < (unsigned int)new)
 		{
 			if (tmp->prev) {
 				tmp->prev->next = new;

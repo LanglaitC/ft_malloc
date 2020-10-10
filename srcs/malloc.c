@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 16:22:08 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/10 17:17:20 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	*allocate_memory(size_t size)
 
 	tmp = g_info->current->start;
 	last = tmp;
-	while (tmp != NULL && (tmp->status != NOALLOC || tmp->size < size))
+	while (tmp != NULL && (tmp->status == ALLOCATED || tmp->size < size))
 	{
 		last = tmp;
 		tmp = tmp->next;
@@ -88,7 +88,7 @@ void	*malloc(size_t size)
 		ft_putstr("WTF?");
 		exit(1);
 	}
-	// show_alloc_mem();
-	// ft_putstr("---------\n");
+	show_alloc_mem();
+	ft_putstr("---------\n");
 	return (result);
 }

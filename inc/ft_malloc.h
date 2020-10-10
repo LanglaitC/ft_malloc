@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 15:55:28 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/10 16:24:40 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define ALLOCATED              1
 # define TINY_STATUS            0
 # define TINY                   512
-# define SMALL                  1026
+# define SMALL                  1024
 # define SMALL_STATUS           1
 # define LARGE_STATUS           2
 # define MIN_ALLOCATION_BY_ZONE 100
