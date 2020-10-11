@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 22:54:54 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 09:59:57 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ static void		*try_reallocate(t_alloc *initial, size_t size)
 	new = malloc(size);
 	if (new)
 	{
-		ft_memcpy(new, initial->address, max_size);
-		free(initial->address);
+		ft_memcpy(new, initial + (sizeof(t_alloc) / sizeof(t_alloc)), max_size);
+		free(initial + (sizeof(t_alloc) / sizeof(t_alloc)));
 	}
-	//ft_putstr("END REALLOC\n");
 	return (new);
 }
 
@@ -46,7 +45,7 @@ static t_alloc	*find_alloc_in_list(void *ptr, t_zone *zone)
 		tmp = zone->start;
 		while (tmp)
 		{
-			if (tmp->address == ptr) {
+			if (tmp + (sizeof(t_alloc) / sizeof(t_alloc)) == ptr) {
 				return (tmp);
 			}
 			tmp = tmp->next;
@@ -61,12 +60,8 @@ void			*realloc(void *ptr, size_t size)
 	t_alloc	*allocated_ptr;
 	char	status;
 
-	(void)ptr;
-	//ft_putstr("START_REALLOC\n");
-	if (ptr == NULL) {
-		//ft_putstr("END REALLOC\n");
+	if (ptr == NULL)
 		return (malloc(size));
-	}
 	else if (size == 0)
 	{
 		free(ptr);
@@ -79,12 +74,10 @@ void			*realloc(void *ptr, size_t size)
 		status = get_status(allocated_ptr->size);
 		if (status != LARGE_STATUS && allocated_ptr->size >= size)
 		{
-			//ft_putstr("END_REALLOC\n");
 			allocated_ptr->size = size;
 			return (ptr);
 		}
 		return (try_reallocate(allocated_ptr, size));
 	}
-	//ft_putstr("END_REALLOC\n");
 	return NULL;
 }

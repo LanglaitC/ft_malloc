@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 08:40:04 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 15:38:48 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/10 23:06:48 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	*calloc(size_t count, size_t size) {
 	alloc = malloc(count * size);
 	if (alloc == NULL)
 		return NULL;
-	ft_memset(alloc, 0, size * count);
+	ft_bzero(alloc, size * count);
 	return (alloc);
 }

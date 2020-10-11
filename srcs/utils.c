@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 17:13:36 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 09:58:42 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_zone		*search_free_zone(t_zone_info info, size_t size)
 	tmp = g_info->start;
 	while (tmp != NULL)
 	{
-		if (tmp->status == info.status)
+		if (tmp->status == info.status && tmp->status != LARGE_STATUS)
 		{
 			if (tmp->free_size >= size + sizeof(t_alloc))
 				break ;
@@ -117,7 +117,6 @@ static t_zone		*allocate_zone(t_zone_info info, size_t size)
 	tmp->start = (t_alloc*)(tmp + (sizeof(t_zone) / sizeof(t_zone)));
 	tmp->start->status = NOALLOC;
 	tmp->start->size = size;
-	tmp->start->address = tmp->start + (sizeof(t_alloc) / sizeof(t_alloc));
 	if (g_info->start == NULL)
 		g_info->start = tmp;
 	else 

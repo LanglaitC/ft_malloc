@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 22:40:21 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 09:58:57 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	*create_new_chunk(t_alloc *last, int size)
 	if (last == NULL)
 	{
 		new = g_info->current->start;
-		new->prev = NULL;
 		new->next = NULL;
 	}
 	else
@@ -32,18 +31,16 @@ void	*create_new_chunk(t_alloc *last, int size)
 		}
 		new = last + (to_jump / sizeof(t_alloc));
 		last->next = new;
-		new->prev = last;
 	}
 	new->size = size;
 	new->next = NULL;
-	new->address = new + (sizeof(t_alloc) / sizeof(t_alloc));
 	new->status = ALLOCATED;
 	if (size % 16) {
 		g_info->current->free_size -= (size + 16 - size % 16 + sizeof(t_alloc));
 	} else {
 		g_info->current->free_size -= (size + sizeof(t_alloc));
 	}
-	return (new->address);
+	return (new + (sizeof(t_alloc) / sizeof(t_alloc)));
 }
 
 void	*allocate_memory(size_t size)
@@ -62,7 +59,7 @@ void	*allocate_memory(size_t size)
 	{
 		tmp->status = ALLOCATED;
 		tmp->size = size;
-		return (tmp->address);
+		return (tmp + (sizeof(t_alloc) / sizeof(t_alloc)));
 	}
 	return (create_new_chunk(last, size));
 }

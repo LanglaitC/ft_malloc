@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 16:24:40 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/10 23:19:16 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ typedef struct      s_zone_info
 
 typedef struct  s_alloc
 {
-    void            *address;
     unsigned char   status;
     unsigned int    size;
     struct s_alloc  *next;
-    struct s_alloc  *prev;
 }               t_alloc;
 
 typedef struct      s_zone

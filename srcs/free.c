@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 17:54:45 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 09:56:37 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	handle_large_zone(t_zone *used_zone)
 	{
 		g_info->start = used_zone->next;
 	}
-	munmap(used_zone, used_zone->size+sizeof(t_zone));
+	munmap(used_zone, used_zone->size);
 }
 
 void		free(void *ptr)
@@ -60,7 +60,7 @@ void		free(void *ptr)
 		tmp = used_zone->start;
 		while (tmp)
 		{
-			if (tmp->address == ptr)
+			if (tmp + (sizeof(t_alloc) / sizeof(t_alloc)) == ptr)
 				tmp->status = NOALLOC;
 			tmp = tmp->next;
 		}
