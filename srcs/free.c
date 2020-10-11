@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:14:43 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/11 09:56:37 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 10:34:42 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_zone		*find_zone_in_list(void *ptr)
 		tmp_zone = g_info->start;
 		while (tmp_zone)
 		{
-			if ((unsigned int)tmp_zone < (unsigned int)ptr
-			&& (unsigned int)tmp_zone + tmp_zone->size > (unsigned int)ptr)
+			if ((uintptr_t)tmp_zone < (uintptr_t)ptr
+			&& (uintptr_t)tmp_zone + tmp_zone->size > (uintptr_t)ptr)
 			{
 				break ;
 			}

@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/11 10:25:19 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 10:33:28 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/mman.h>
+# include <inttypes.h>
 
 # define NOALLOC                0
 # define ALLOCATED              1

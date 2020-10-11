@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/11 10:00:18 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 10:35:32 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	show_zone(t_zone *zone_start, t_alloc *start)
 	i = 0;
 	tmp = start;
 	ft_putstr("0x");
-	ft_putadrr((unsigned int)zone_start, "0123456789ABCDEF");
+	ft_putadrr((uintptr_t)zone_start, "0123456789ABCDEF");
 	ft_putchar('\n');
 	while (tmp)
 	{
 		ft_putstr("0x");
-		ft_putadrr((unsigned int)tmp + sizeof(t_alloc), "0123456789ABCDEF");
+		ft_putadrr((uintptr_t)tmp + sizeof(t_alloc), "0123456789ABCDEF");
 		ft_putstr(" - 0x");
-		ft_putadrr((unsigned int)tmp + sizeof(t_alloc) + tmp->size,
+		ft_putadrr((uintptr_t)tmp + sizeof(t_alloc) + tmp->size,
 			"0123456789ABCDEF");
 		ft_putstr(" : ");
 		ft_putnbr(tmp->size);

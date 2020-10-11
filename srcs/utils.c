@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/11 09:58:42 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 10:35:45 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void				insert_new_zone(t_zone *new)
 	t_zone	*tmp;
 
 	tmp = g_info->start;
-	if ((unsigned int)tmp < (unsigned int)new)
+	if ((uintptr_t)tmp < (uintptr_t)new)
 	{
 		new->next = tmp;
 		tmp->prev = new;
@@ -56,9 +56,9 @@ void				insert_new_zone(t_zone *new)
 	}
 	else
 	{
-		while ((unsigned int)tmp > (unsigned int)new && tmp->next)
+		while ((uintptr_t)tmp > (uintptr_t)new && tmp->next)
 			tmp = tmp->next;
-		if (tmp->next || (unsigned int)tmp < (unsigned int)new)
+		if (tmp->next || (uintptr_t)tmp < (uintptr_t)new)
 		{
 			if (tmp->prev) {
 				tmp->prev->next = new;
