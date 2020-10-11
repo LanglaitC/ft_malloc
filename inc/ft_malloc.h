@@ -6,7 +6,7 @@
 /*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:11:50 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/10 23:19:16 by langlaitcor      ###   ########.fr       */
+/*   Updated: 2020/10/11 10:25:19 by langlaitcor      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/mman.h>
-# include "../libft/inc/libft.h"
 
 # define NOALLOC                0
 # define ALLOCATED              1
@@ -70,6 +69,11 @@ void            *realloc(void *ptr, size_t size);
 void            *calloc(size_t count, size_t size);
 void            show_alloc_mem(void);
 void            ft_putadrr(unsigned int addr, char base[16]);
+void			*ft_memcpy(void *dst, const void *src, size_t n);
+void			ft_putchar(char c);
+void			ft_putnbr(int n);
+void			ft_putstr(char const *s);
+void		    ft_bzero(void *s, size_t n);
 int             get_status(size_t size);
 t_zone          *find_zone_in_list(void *ptr);
 t_info          *get_info_variable(size_t size);
