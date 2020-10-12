@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
+/*   By: clanglai <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/01 13:14:47 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/11 09:59:57 by langlaitcor      ###   ########.fr       */
+/*   Created: 2020/10/12 08:21:57 by clanglai          #+#    #+#             */
+/*   Updated: 2020/10/12 08:21:58 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ static t_alloc	*find_alloc_in_list(void *ptr, t_zone *zone)
 		tmp = zone->start;
 		while (tmp)
 		{
-			if (tmp + (sizeof(t_alloc) / sizeof(t_alloc)) == ptr) {
+			if (tmp + (sizeof(t_alloc) / sizeof(t_alloc)) == ptr)
 				return (tmp);
-			}
 			tmp = tmp->next;
 		}
 	}
@@ -65,7 +64,7 @@ void			*realloc(void *ptr, size_t size)
 	else if (size == 0)
 	{
 		free(ptr);
-		return malloc(0);
+		return (malloc(0));
 	}
 	allocated_zone = find_zone_in_list(ptr);
 	allocated_ptr = find_alloc_in_list(ptr, allocated_zone);
@@ -79,5 +78,5 @@ void			*realloc(void *ptr, size_t size)
 		}
 		return (try_reallocate(allocated_ptr, size));
 	}
-	return NULL;
+	return (NULL);
 }

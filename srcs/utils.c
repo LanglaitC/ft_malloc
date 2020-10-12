@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
+/*   By: clanglai <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 11:23:45 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/11 10:35:45 by langlaitcor      ###   ########.fr       */
+/*   Created: 2020/10/12 08:21:26 by clanglai          #+#    #+#             */
+/*   Updated: 2020/10/12 08:21:32 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,21 @@ void				insert_new_zone(t_zone *new)
 		new->next = tmp;
 		tmp->prev = new;
 		g_info->start = new;
+		return ;
 	}
-	else
+	while ((uintptr_t)tmp > (uintptr_t)new && tmp->next)
+		tmp = tmp->next;
+	if (tmp->next || (uintptr_t)tmp < (uintptr_t)new)
 	{
-		while ((uintptr_t)tmp > (uintptr_t)new && tmp->next)
-			tmp = tmp->next;
-		if (tmp->next || (uintptr_t)tmp < (uintptr_t)new)
-		{
-			if (tmp->prev) {
-				tmp->prev->next = new;
-			}
-			new->prev = tmp->prev;
-			new->next = tmp;
-			tmp->prev = new;
-		}
-		else
-		{
-			tmp->next = new;
-			new->prev = tmp;
-		}
+		if (tmp->prev)
+			tmp->prev->next = new;
+		new->prev = tmp->prev;
+		new->next = tmp;
+		tmp->prev = new;
+		return ;
 	}
+	tmp->next = new;
+	new->prev = tmp;
 }
 
 static t_zone		*search_free_zone(t_zone_info info, size_t size)
@@ -81,7 +76,7 @@ static t_zone		*search_free_zone(t_zone_info info, size_t size)
 	t_alloc *tmp_alloc;
 
 	if (g_info->start == NULL)
-		return NULL;
+		return (NULL);
 	tmp = g_info->start;
 	while (tmp != NULL)
 	{
@@ -93,13 +88,13 @@ static t_zone		*search_free_zone(t_zone_info info, size_t size)
 			while (tmp_alloc != NULL)
 			{
 				if (tmp_alloc->status == NOALLOC && tmp_alloc->size >= size)
-					return tmp;
+					return (tmp);
 				tmp_alloc = tmp_alloc->next;
 			}
 		}
 		tmp = tmp->next;
 	}
-	return tmp;
+	return (tmp);
 }
 
 static t_zone		*allocate_zone(t_zone_info info, size_t size)
@@ -108,9 +103,8 @@ static t_zone		*allocate_zone(t_zone_info info, size_t size)
 
 	tmp = mmap(0, sizeof(t_zone) + info.zone_size,
 	PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	if (tmp == NULL) {
+	if (tmp == NULL)
 		return (NULL);
-	}
 	tmp->size = info.zone_size;
 	tmp->status = info.status;
 	tmp->free_size = tmp->size - sizeof(t_zone) - size - sizeof(t_alloc);
@@ -119,7 +113,7 @@ static t_zone		*allocate_zone(t_zone_info info, size_t size)
 	tmp->start->size = size;
 	if (g_info->start == NULL)
 		g_info->start = tmp;
-	else 
+	else
 		insert_new_zone(tmp);
 	return (tmp);
 }
@@ -132,18 +126,16 @@ t_info				*get_info_variable(size_t size)
 	{
 		g_info = mmap(0, sizeof(t_info),
 		PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-		if (g_info == NULL) {
+		if (g_info == NULL)
 			return (NULL);
-		}
 	}
 	info = get_best_alloc_size_for_zone(size);
 	g_info->current = search_free_zone(info, size);
 	if (g_info->current == NULL)
 	{
 		g_info->current = allocate_zone(info, size);
-		if (g_info->current == NULL) {
+		if (g_info->current == NULL)
 			return (NULL);
-		}
 	}
 	return (g_info);
 }

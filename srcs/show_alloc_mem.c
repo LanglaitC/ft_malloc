@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_alloc_mem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: langlaitcorentin <langlaitcorentin@stud    +#+  +:+       +#+        */
+/*   By: clanglai <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 11:05:59 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/11 10:35:32 by langlaitcor      ###   ########.fr       */
+/*   Created: 2020/10/12 08:22:23 by clanglai          #+#    #+#             */
+/*   Updated: 2020/10/12 08:22:28 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
