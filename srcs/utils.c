@@ -6,7 +6,7 @@
 /*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 08:21:26 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/15 09:44:26 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/10/15 12:05:10 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void				insert_new_zone(t_zone *new)
 	}
 	while ((uintptr_t)tmp < (uintptr_t)new && tmp->next)
 		tmp = tmp->next;
-	if (tmp->next || (uintptr_t)tmp > (uintptr_t)new)
+	if (tmp->next)
 	{
 		if (tmp->prev)
 			tmp->prev->next = new;
