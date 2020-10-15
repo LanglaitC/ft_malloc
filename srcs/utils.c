@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clanglai <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: clanglai <clanglai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 08:21:26 by clanglai          #+#    #+#             */
-/*   Updated: 2020/10/12 08:30:22 by clanglai         ###   ########.fr       */
+/*   Updated: 2020/10/15 09:44:26 by clanglai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ static t_zone_info	get_best_alloc_size_for_zone(int size)
 	info.status = get_status(size);
 	if (info.status == LARGE_STATUS)
 	{
-		info.zone_size = (size + sizeof(t_zone) + sizeof(t_alloc) + PAGESIZE)
-		/ PAGESIZE * PAGESIZE;
+		info.zone_size = (size + sizeof(t_zone) + sizeof(t_alloc)
+		+ getpagesize()) / getpagesize() * getpagesize();
 		info.chunk_number = 1;
 		return (info);
 	}
-	info.zone_size = PAGESIZE;
-	i = (PAGESIZE - sizeof(t_zone)) /
+	info.zone_size = getpagesize();
+	i = (getpagesize() - sizeof(t_zone)) /
 	(size_by_status[info.status] + sizeof(t_alloc));
 	while (i < MIN_ALLOCATION_BY_ZONE)
 	{
-		i += PAGESIZE / (size_by_status[info.status] + sizeof(t_alloc));
-		info.zone_size += PAGESIZE;
+		i += getpagesize() / (size_by_status[info.status] + sizeof(t_alloc));
+		info.zone_size += getpagesize();
 	}
 	info.chunk_number = i;
 	return (info);
